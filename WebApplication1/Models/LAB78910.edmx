@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LAB78910Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Import">
+          <Key>
+            <PropertyRef Name="importID" />
+          </Key>
+          <Property Name="importID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="importTotalProduct" Type="int" />
+          <Property Name="importTotalPrice" Type="int" />
+          <Property Name="importCreated" Type="date" />
+          <Property Name="accountID" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImportDetail">
+          <Key>
+            <PropertyRef Name="importID" />
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="importID" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="productID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="productName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="productPrice" Type="int" Nullable="false" />
+          <Property Name="productQuantity" Type="int" Nullable="false" />
+          <Property Name="productOrigin" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="productName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="productPrice" Type="int" Nullable="false" />
+          <Property Name="productQuantity" Type="int" Nullable="false" />
+          <Property Name="productOrigin" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ImportDetail_Import_importID">
+          <End Role="Import" Type="Self.Import" Multiplicity="1" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Import">
+              <PropertyRef Name="importID" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="importID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Product_productID">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LAB78910ModelStoreContainer">
+          <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportDetail" EntityType="Self.ImportDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ImportDetail_Import_importID" Association="Self.FK_ImportDetail_Import_importID">
+            <End Role="Import" EntitySet="Import" />
+            <End Role="ImportDetail" EntitySet="ImportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Product_productID" Association="Self.FK_ImportDetail_Product_productID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ImportDetail" EntitySet="ImportDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LAB78910Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Import">
+          <Key>
+            <PropertyRef Name="importID" />
+          </Key>
+          <Property Name="importID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="importTotalProduct" Type="Int32" />
+          <Property Name="importTotalPrice" Type="Int32" />
+          <Property Name="importCreated" Type="DateTime" Precision="0" />
+          <Property Name="accountID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ImportDetails" Relationship="Self.FK_ImportDetail_Import_importID" FromRole="Import" ToRole="ImportDetail" />
+        </EntityType>
+        <EntityType Name="ImportDetail">
+          <Key>
+            <PropertyRef Name="importID" />
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="importID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="productID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="productPrice" Type="Int32" Nullable="false" />
+          <Property Name="productQuantity" Type="Int32" Nullable="false" />
+          <Property Name="productOrigin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Import" Relationship="Self.FK_ImportDetail_Import_importID" FromRole="ImportDetail" ToRole="Import" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ImportDetail_Product_productID" FromRole="ImportDetail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="productPrice" Type="Int32" Nullable="false" />
+          <Property Name="productQuantity" Type="Int32" Nullable="false" />
+          <Property Name="productOrigin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ImportDetails" Relationship="Self.FK_ImportDetail_Product_productID" FromRole="Product" ToRole="ImportDetail" />
+        </EntityType>
+        <Association Name="FK_ImportDetail_Import_importID">
+          <End Role="Import" Type="Self.Import" Multiplicity="1" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Import">
+              <PropertyRef Name="importID" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="importID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Product_productID">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DevConn" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Imports" EntityType="Self.Import" />
+          <EntitySet Name="ImportDetails" EntityType="Self.ImportDetail" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK_ImportDetail_Import_importID" Association="Self.FK_ImportDetail_Import_importID">
+            <End Role="Import" EntitySet="Imports" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Product_productID" Association="Self.FK_ImportDetail_Product_productID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LAB78910ModelStoreContainer" CdmEntityContainer="DevConn">
+          <EntitySetMapping Name="Imports">
+            <EntityTypeMapping TypeName="LAB78910Model.Import">
+              <MappingFragment StoreEntitySet="Import">
+                <ScalarProperty Name="importID" ColumnName="importID" />
+                <ScalarProperty Name="importTotalProduct" ColumnName="importTotalProduct" />
+                <ScalarProperty Name="importTotalPrice" ColumnName="importTotalPrice" />
+                <ScalarProperty Name="importCreated" ColumnName="importCreated" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportDetails">
+            <EntityTypeMapping TypeName="LAB78910Model.ImportDetail">
+              <MappingFragment StoreEntitySet="ImportDetail">
+                <ScalarProperty Name="importID" ColumnName="importID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+                <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+                <ScalarProperty Name="productOrigin" ColumnName="productOrigin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="LAB78910Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productPrice" ColumnName="productPrice" />
+                <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+                <ScalarProperty Name="productOrigin" ColumnName="productOrigin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

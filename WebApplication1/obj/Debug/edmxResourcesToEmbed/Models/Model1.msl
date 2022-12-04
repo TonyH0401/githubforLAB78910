@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LAB78910Model1StoreContainer" CdmEntityContainer="LAB78910Entities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="LAB78910Model1.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="accountID" ColumnName="accountID" />
+          <ScalarProperty Name="accountPassword" ColumnName="accountPassword" />
+          <ScalarProperty Name="accountFirstName" ColumnName="accountFirstName" />
+          <ScalarProperty Name="accountLastName" ColumnName="accountLastName" />
+          <ScalarProperty Name="accountEmail" ColumnName="accountEmail" />
+          <ScalarProperty Name="accountPhone" ColumnName="accountPhone" />
+          <ScalarProperty Name="accountAddress" ColumnName="accountAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stores">
+      <EntityTypeMapping TypeName="LAB78910Model1.Store">
+        <MappingFragment StoreEntitySet="Store">
+          <ScalarProperty Name="storeID" ColumnName="storeID" />
+          <ScalarProperty Name="storeName" ColumnName="storeName" />
+          <ScalarProperty Name="storeLocation" ColumnName="storeLocation" />
+          <ScalarProperty Name="taxValue" ColumnName="taxValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

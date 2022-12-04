@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LAB78910Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="importID" />
+    </Key>
+    <Property Name="importID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="importTotalProduct" Type="Int32" />
+    <Property Name="importTotalPrice" Type="Int32" />
+    <Property Name="importCreated" Type="DateTime" Precision="0" />
+    <Property Name="accountID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ImportDetails" Relationship="Self.FK_ImportDetail_Import_importID" FromRole="Import" ToRole="ImportDetail" />
+  </EntityType>
+  <EntityType Name="ImportDetail">
+    <Key>
+      <PropertyRef Name="importID" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="importID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="productID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="productPrice" Type="Int32" Nullable="false" />
+    <Property Name="productQuantity" Type="Int32" Nullable="false" />
+    <Property Name="productOrigin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Import" Relationship="Self.FK_ImportDetail_Import_importID" FromRole="ImportDetail" ToRole="Import" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ImportDetail_Product_productID" FromRole="ImportDetail" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="productPrice" Type="Int32" Nullable="false" />
+    <Property Name="productQuantity" Type="Int32" Nullable="false" />
+    <Property Name="productOrigin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ImportDetails" Relationship="Self.FK_ImportDetail_Product_productID" FromRole="Product" ToRole="ImportDetail" />
+  </EntityType>
+  <Association Name="FK_ImportDetail_Import_importID">
+    <End Role="Import" Type="Self.Import" Multiplicity="1" />
+    <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Import">
+        <PropertyRef Name="importID" />
+      </Principal>
+      <Dependent Role="ImportDetail">
+        <PropertyRef Name="importID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ImportDetail_Product_productID">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="ImportDetail">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DevConn" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Imports" EntityType="Self.Import" />
+    <EntitySet Name="ImportDetails" EntityType="Self.ImportDetail" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <AssociationSet Name="FK_ImportDetail_Import_importID" Association="Self.FK_ImportDetail_Import_importID">
+      <End Role="Import" EntitySet="Imports" />
+      <End Role="ImportDetail" EntitySet="ImportDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ImportDetail_Product_productID" Association="Self.FK_ImportDetail_Product_productID">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ImportDetail" EntitySet="ImportDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

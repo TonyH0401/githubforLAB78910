@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LAB78910Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Import">
+    <Key>
+      <PropertyRef Name="importID" />
+    </Key>
+    <Property Name="importID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="importTotalProduct" Type="int" />
+    <Property Name="importTotalPrice" Type="int" />
+    <Property Name="importCreated" Type="date" />
+    <Property Name="accountID" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImportDetail">
+    <Key>
+      <PropertyRef Name="importID" />
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="importID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="productID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="productName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="productPrice" Type="int" Nullable="false" />
+    <Property Name="productQuantity" Type="int" Nullable="false" />
+    <Property Name="productOrigin" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="productName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="productPrice" Type="int" Nullable="false" />
+    <Property Name="productQuantity" Type="int" Nullable="false" />
+    <Property Name="productOrigin" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ImportDetail_Import_importID">
+    <End Role="Import" Type="Self.Import" Multiplicity="1" />
+    <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Import">
+        <PropertyRef Name="importID" />
+      </Principal>
+      <Dependent Role="ImportDetail">
+        <PropertyRef Name="importID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ImportDetail_Product_productID">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="ImportDetail">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LAB78910ModelStoreContainer">
+    <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportDetail" EntityType="Self.ImportDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ImportDetail_Import_importID" Association="Self.FK_ImportDetail_Import_importID">
+      <End Role="Import" EntitySet="Import" />
+      <End Role="ImportDetail" EntitySet="ImportDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ImportDetail_Product_productID" Association="Self.FK_ImportDetail_Product_productID">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ImportDetail" EntitySet="ImportDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

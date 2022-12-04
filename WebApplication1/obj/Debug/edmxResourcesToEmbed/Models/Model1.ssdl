@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LAB78910Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="accountID" />
+    </Key>
+    <Property Name="accountID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountPassword" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountFirstName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountLastName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountEmail" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountPhone" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="accountAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="storeID" />
+    </Key>
+    <Property Name="storeID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="storeName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="storeLocation" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="taxValue" Type="int" />
+  </EntityType>
+  <EntityContainer Name="LAB78910Model1StoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

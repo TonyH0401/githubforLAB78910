@@ -1,0 +1,66 @@
+﻿@model WebApplication1.Models.ImportDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ImportDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productOrigin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productOrigin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Import.accountID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Import.accountID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.productName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.productName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

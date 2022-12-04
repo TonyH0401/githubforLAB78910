@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication1.Models.Import>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.importTotalProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.importTotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.importCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.accountID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.importTotalProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.importTotalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.importCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.accountID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.importID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.importID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.importID })
+        </td>
+    </tr>
+}
+
+</table>
